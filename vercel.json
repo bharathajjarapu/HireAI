@@ -1,0 +1,19 @@
+{
+  "functions": {
+    "app/api/upload-resume/route.ts": {
+      "maxDuration": 30
+    },
+    "app/api/upload-resume-multi-agent/route.ts": {
+      "maxDuration": 30
+    },
+    "app/api/chat-resume/route.ts": {
+      "maxDuration": 30
+    },
+    "app/api/search-candidates/route.ts": {
+      "maxDuration": 30
+    },
+    "app/api/generate-email/route.ts": {
+      "maxDuration": 30
+    }
+  }
+} 

@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262 83% 58%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 262 83% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Additional styles for markdown content */
+.prose {
+  @apply max-w-none;
+}
+
+.prose p {
+  @apply my-2;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  @apply font-semibold mt-4 mb-2;
+}
+
+.prose ul, .prose ol {
+  @apply my-2 pl-4;
+}
+
+.prose ul {
+  @apply list-disc;
+}
+
+.prose ol {
+  @apply list-decimal;
+}
+
+.prose li {
+  @apply mb-1;
+}
+
+.prose code {
+  @apply px-1.5 py-0.5 bg-gray-100 rounded text-sm font-mono;
+}
+
+.prose pre {
+  @apply p-3 bg-gray-100 rounded-lg my-3 overflow-x-auto;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 block;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-gray-200 pl-4 my-4 italic;
+}
+
+.prose a {
+  @apply text-blue-600 hover:text-blue-800 underline;
+}
+
+.prose strong {
+  @apply font-semibold;
+}
+
+/* User message styles */
+.prose.user-message {
+  @apply text-white;
+}
+
+.prose.user-message code {
+  @apply bg-blue-600/30 text-white;
+}
+
+.prose.user-message pre {
+  @apply bg-blue-600/20;
+}
+
+.prose.user-message pre code {
+  @apply text-white bg-transparent;
+}
+
+.prose.user-message a {
+  @apply text-white hover:text-blue-100;
+}
+
+.prose.user-message blockquote {
+  @apply border-white/30;
+}
+
+/* Dark mode adjustments */
+.dark .prose code {
+  @apply bg-gray-800;
+}
+
+.dark .prose pre {
+  @apply bg-gray-800;
+}
+
+.dark .prose blockquote {
+  @apply border-gray-700;
+}
+
+.dark .prose a {
+  @apply text-blue-400 hover:text-blue-300;
+}

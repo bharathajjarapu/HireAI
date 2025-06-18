@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Resume Upload</title>
+</head>
+<body>
+    <h1>Test Resume Upload</h1>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" accept=".pdf" />
+        <button type="submit">Upload Resume</button>
+    </form>
+    
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const fileInput = document.getElementById('fileInput');
+            const result = document.getElementById('result');
+            
+            if (!fileInput.files[0]) {
+                result.innerHTML = '<p style="color: red;">Please select a PDF file</p>';
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            
+            result.innerHTML = '<p>Processing...</p>';
+            
+            try {
+                const response = await fetch('/api/upload-resume', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    result.innerHTML = '<pre style="color: green;">' + JSON.stringify(data, null, 2) + '</pre>';
+                } else {
+                    result.innerHTML = '<p style="color: red;">Error: ' + data.error + '</p>';
+                }
+            } catch (error) {
+                result.innerHTML = '<p style="color: red;">Network error: ' + error.message + '</p>';
+            }
+        });
+    </script>
+</body>
+</html> 
