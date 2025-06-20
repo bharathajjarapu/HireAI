@@ -1,0 +1,6 @@
+{
+  "/page": "app/page.js",
+  "/search-advanced/page": "app/search-advanced/page.js",
+  "/search/page": "app/search/page.js",
+  "/search-pipeline/page": "app/search-pipeline/page.js"
+}

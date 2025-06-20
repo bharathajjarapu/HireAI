@@ -190,7 +190,15 @@ export default function SearchCandidates() {
               <h1 className="text-xl font-bold text-gray-900">AI Candidate Search</h1>
             </div>
 
-            <div></div>
+            <div>
+              <Link href="/search-advanced" className="inline-block">
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button size="sm" className="text-xs bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-md">
+                    Advanced Search
+                  </Button>
+                </motion.div>
+              </Link>
+            </div>
           </div>
         </div>
       </motion.header>
