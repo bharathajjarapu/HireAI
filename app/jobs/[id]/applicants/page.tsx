@@ -18,7 +18,6 @@ import {
   FileText,
   Calendar,
   Search,
-  Sparkles,
   Download,
   Eye,
   Filter,
@@ -30,6 +29,7 @@ import {
   Plus,
   User,
   Star,
+  Brain,
 } from "lucide-react"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
@@ -93,11 +93,34 @@ export default function ApplicantsPage() {
       if (jobResponse.ok) {
         const jobData = await jobResponse.json()
         setJobData(jobData)
+        // Store job role/title and description for analysis context
+        try {
+          if (jobData?.title) {
+            localStorage.setItem('autoAnalysisJobRole', jobData.title)
+          }
+          if (jobData?.description) {
+            localStorage.setItem('autoAnalysisJobDescription', jobData.description)
+          }
+        } catch (err) {
+          console.warn('Unable to cache job metadata for analysis', err)
+        }
       }
 
       if (applicationsResponse.ok) {
         const applicationsData = await applicationsResponse.json()
         setApplications(applicationsData.applications || [])
+        // NEW: Persist resumes to localStorage for auto analysis
+        try {
+          const resumesForAnalysis = (applicationsData.applications || []).map((app: Application, idx: number) => ({
+            id: idx + 1,
+            filename: app.resumeFilename || `${app.name.replace(/\s+/g, "_").toLowerCase()}.pdf`,
+            candidateName: app.name,
+            fileUrl: app.resumePath,
+          }))
+          localStorage.setItem('autoAnalysisResumes', JSON.stringify(resumesForAnalysis))
+        } catch (err) {
+          console.warn('Unable to cache applicant resumes for analysis', err)
+        }
       }
     } catch (error) {
       toast({
@@ -216,10 +239,6 @@ export default function ApplicantsPage() {
     return 'bg-red-100 text-red-800 border-red-200'
   }
 
-  const startRanking = () => {
-    router.push(`/jobs/${jobId}/ranking`)
-  }
-
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center">
@@ -254,12 +273,13 @@ export default function ApplicantsPage() {
             </div>
 
             <Button
-              onClick={startRanking}
-              className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
+              onClick={() => router.push('/resume-parser')}
+              variant="outline"
+              className="mr-2 border-purple-500 text-purple-700 hover:bg-purple-50"
               disabled={applications.length === 0}
             >
-              <Sparkles className="w-4 h-4 mr-2" />
-              Start Ranking
+              <Brain className="w-4 h-4 mr-2" />
+              Parse Resumes
             </Button>
           </div>
         </div>

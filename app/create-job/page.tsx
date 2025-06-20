@@ -152,12 +152,6 @@ export default function CreateJob() {
     }
   }
 
-  const startRanking = () => {
-    if (generatedJob) {
-      router.push(`/jobs/${generatedJob.id}/ranking`)
-    }
-  }
-
   const platformOptions = [
     { value: 'linkedin', label: 'LinkedIn', icon: Linkedin, color: 'text-blue-600' },
     { value: 'twitter', label: 'Twitter', icon: Twitter, color: 'text-blue-400' },
@@ -178,6 +172,12 @@ export default function CreateJob() {
               <Button variant="ghost" className="hover:bg-blue-50">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Dashboard
+              </Button>
+            </Link>
+
+            <Link href="/jobs">
+              <Button variant="ghost" className="hover:bg-blue-50">
+                View All Jobs
               </Button>
             </Link>
 
@@ -355,18 +355,10 @@ export default function CreateJob() {
                 <div className="flex flex-wrap gap-3">
                   <Button
                     onClick={viewApplicants}
-                    variant="outline"
-                    className="flex-1 min-w-[150px]"
+                    className="flex-1 min-w-[200px] bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
                   >
                     <Users className="w-4 h-4 mr-2" />
                     View Applicants ({generatedJob.applicantCount})
-                  </Button>
-                  <Button
-                    onClick={startRanking}
-                    className="flex-1 min-w-[150px] bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
-                  >
-                    <Sparkles className="w-4 h-4 mr-2" />
-                    Start Ranking
                   </Button>
                 </div>
               </CardContent>

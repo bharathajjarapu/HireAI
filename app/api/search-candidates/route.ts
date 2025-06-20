@@ -257,8 +257,11 @@ CRITICAL INSTRUCTIONS:
 function parsePerplexityResults(searchResults: string, jobRole: string, defaultLocation: string, profileCount: number): Candidate[] {
   const candidates: Candidate[] = []
   
-  // Split by "Candidate #" while keeping the delimiter
-  const candidateBlocks = searchResults.split(/(?=Candidate #\d*:)/i).filter(block => block.trim().length > 10)
+  // Support headings like 'Candidate #1:' or '### Candidate #1:'
+  const candidateBlocks = searchResults
+    .replace(/###\s*/g, '') // remove markdown heading hashes
+    .split(/(?=Candidate\s*#\d*:)/i)
+    .filter(block => block.trim().length > 10)
   
   console.log(`Found ${candidateBlocks.length} candidate blocks to parse`)
 
@@ -266,7 +269,12 @@ function parsePerplexityResults(searchResults: string, jobRole: string, defaultL
     if (candidates.length >= profileCount) break
 
     try {
-      const lines = block.split('\n').map(l => l.trim()).filter(l => l.length > 0)
+      // Strip markdown bold markers and ensure each key is on its own line
+      let cleanedBlock = block.replace(/\*\*/g, '')
+      // Ensure combined LinkedIn/GitHub appear on separate lines
+      cleanedBlock = cleanedBlock.replace(/GitHub:/g, '\nGitHub:').replace(/LinkedIn:/g, 'LinkedIn:')
+
+      const lines = cleanedBlock.split('\n').map(l => l.trim()).filter(l => l.length > 0)
       let currentCandidate: Partial<Candidate> = { 
         id: Date.now() + Math.random(),
         score: 70 // Default score before Gemini enhancement

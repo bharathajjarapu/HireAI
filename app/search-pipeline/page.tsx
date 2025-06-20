@@ -81,6 +81,12 @@ export default function SearchPipeline() {
       }))
       setEmails(initialEmails)
     }
+
+    // Auto-fill job role
+    const cachedRole = localStorage.getItem('autoAnalysisJobRole')
+    if (cachedRole) {
+      setJobRole(cachedRole)
+    }
   }, [])
 
   const handleRemoveCandidate = (id: number) => {

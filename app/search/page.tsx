@@ -110,7 +110,7 @@ export default function SearchCandidates() {
         name: candidate.name || `Professional ${index + 1}`,
         title: candidate.title || jobRole,
         summary: candidate.summary && candidate.summary.length > 20 ? candidate.summary : `Experienced ${jobRole} professional with expertise in software development.`
-      }))
+      })).sort((a: Candidate, b: Candidate) => b.score - a.score) // High to low
 
       setSearchProgress(100)
       await new Promise((resolve) => setTimeout(resolve, 300))

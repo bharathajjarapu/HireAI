@@ -57,17 +57,53 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Fallback if AI disabled or failed
+    // Fallback if AI disabled or failed – attempt to extract data heuristically
     if (!jobData) {
+      const extractTitle = (text: string): string => {
+        const patterns = [
+          /seeking (?:an? )?(.*?)(?:\.|,| with | to )/i,
+          /looking for (?:an? )?(.*?)(?:\.|,| with | to )/i,
+          /hiring (?:an? )?(.*?)(?:\.|,| with | to )/i,
+          /need (?:an? )?(.*?)(?:\.|,| with | to )/i,
+        ]
+        for (const p of patterns) {
+          const m = text.match(p)
+          if (m && m[1]) return m[1].trim().replace(/^[a-z]/, c => c.toUpperCase())
+        }
+        // Default to first 5 words capitalised
+        return text.split(/[,\.]/)[0].split(" ").slice(0, 5).join(" ")
+      }
+
+      const extractDescription = (text: string): string => {
+        const sentences = text.split(/(?<=[.!?])\s+/)
+        return sentences.slice(0, 3).join(" ")
+      }
+
+      const extractCompany = (text: string): string => {
+        const companyPatterns = [
+          / at ([A-Z][A-Za-z0-9 &]*)/i,
+          / with ([A-Z][A-Za-z0-9 &]*)/i,
+          / for ([A-Z][A-Za-z0-9 &]*)/i,
+        ]
+        for (const p of companyPatterns) {
+          const m = text.match(p)
+          if (m && m[1]) return m[1].trim()
+        }
+        return "Hiring Company"
+      }
+
+      const title = extractTitle(prompt)
+      const description = extractDescription(prompt)
+      const company = extractCompany(prompt)
       jobData = {
-        title: "Software Developer",
-        description: prompt,
-        requirements: ["Bachelor's degree or equivalent experience"],
-        skills: ["Programming", "Problem solving"],
+        title,
+        description,
+        requirements: [],
+        skills: [],
         location: "Remote/Flexible",
         salary: "Competitive",
-        experience: "2+ years",
-        company: "Hiring Company"
+        experience: "",
+        company,
       }
     }
 

@@ -94,6 +94,12 @@ export default function Pipeline() {
       }))
       setEmails(initialEmails)
     }
+
+    // Auto-fill job role if cached
+    const cachedRole = localStorage.getItem('autoAnalysisJobRole')
+    if (cachedRole) {
+      setJobRole(cachedRole)
+    }
   }, [])
 
   const handleRemoveCandidate = (id: number) => {

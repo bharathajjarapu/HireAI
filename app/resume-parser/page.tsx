@@ -326,6 +326,7 @@ export default function ResumeParser() {
   const [isShowingAgentFlow, setIsShowingAgentFlow] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
+  const [autoTrigger, setAutoTrigger] = useState(false)
 
   // Handler for multi-agent analysis completion
   const handleMultiAgentAnalysisComplete = (results: any[]) => {
@@ -403,13 +404,13 @@ export default function ResumeParser() {
     setIsAnalyzing(true)
 
     try {
-      const validFiles = files.filter(file => file.type.toLowerCase().includes('pdf'))
+      const validFiles = files.filter(file => {
+        const type = file.type.toLowerCase()
+        return type.includes('pdf') || file.name.toLowerCase().endsWith('.pdf')
+      }).slice(0, 5)
       
       if (validFiles.length === 0) {
-        alert('Please select valid PDF files')
-        setUploading(false)
-        setIsAnalyzing(false)
-        return
+        // No strict PDF validation – continue even if type missing
       }
 
       if (!jobRole.trim()) {
@@ -534,14 +535,10 @@ export default function ResumeParser() {
     setAgentStatuses(initialStatuses)
 
     try {
-      const validFiles = files.filter(file => file.type.toLowerCase().includes('pdf')).slice(0, 5)
+      const validFiles = files.slice(0, 5)
       
       if (validFiles.length === 0) {
-        alert('Please select valid PDF files')
-        setUploading(false)
-        setIsAnalyzing(false)
-        setIsShowingAgentFlow(false)
-        return
+        // Proceed even if type information missing (auto-imported resumes)
       }
 
       if (!jobRole.trim()) {
@@ -1018,6 +1015,67 @@ export default function ResumeParser() {
       </motion.div>
     )
   }
+
+  useEffect(() => {
+    // Auto-analysis for resumes coming from Applicants page
+    const runAutoAnalysis = async () => {
+      try {
+        const stored = localStorage.getItem('autoAnalysisResumes')
+        if (!stored) return
+        const resumes: { filename: string; fileUrl: string }[] = JSON.parse(stored)
+        if (!resumes || resumes.length === 0) return
+
+        // Limit to max 5 resumes as enforced by handleMultiAgentUpload
+        const limitedResumes = resumes.slice(0, 5)
+
+        // Fetch PDF blobs and create File objects
+        const fetchedFiles: File[] = []
+        for (const r of limitedResumes) {
+          const response = await fetch(r.fileUrl)
+          if (!response.ok) continue
+          const blob = await response.blob()
+          const file = new File([blob], r.filename, { type: 'application/pdf' })
+          fetchedFiles.push(file)
+        }
+
+        if (fetchedFiles.length === 0) return
+
+        // Set job role from storage if present
+        const storedRole = localStorage.getItem('autoAnalysisJobRole') || ''
+        const storedDesc = localStorage.getItem('autoAnalysisJobDescription') || ''
+        if (storedRole) {
+          setJobRole(storedRole)
+        } else {
+          setJobRole('Open Position')
+        }
+        if (storedDesc) {
+          // Populate "Detailed Requirements" textarea
+          setCurrentFile(storedDesc)
+        }
+
+        // Load files then trigger once files state updated
+        setFiles(fetchedFiles)
+        setAutoTrigger(true)
+
+        // Clear to avoid duplicate triggers on re-mount
+        localStorage.removeItem('autoAnalysisResumes')
+      } catch (err) {
+        console.warn('Auto-analysis failed to initialize', err)
+      }
+    }
+
+    // Run only once on mount
+    runAutoAnalysis()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Trigger analysis when files populated via auto flow
+  useEffect(() => {
+    if (autoTrigger && files.length > 0) {
+      handleMultiAgentUpload()
+      setAutoTrigger(false)
+    }
+  }, [autoTrigger, files])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
