@@ -1,7 +1,13 @@
 
 # clerk configuration (can include secrets)
 /.clerk/
-
+/.next/
 node_modules
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-.next/
+ngrok.exe
+/public/
