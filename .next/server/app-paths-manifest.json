@@ -1,6 +1,9 @@
 {
-  "/page": "app/page.js",
+  "/api/jobs/create/route": "app/api/jobs/create/route.js",
+  "/api/jobs/generate-social-post/route": "app/api/jobs/generate-social-post/route.js",
+  "/apply/[id]/page": "app/apply/[id]/page.js",
   "/search-advanced/page": "app/search-advanced/page.js",
+  "/create-job/page": "app/create-job/page.js",
   "/search/page": "app/search/page.js",
-  "/search-pipeline/page": "app/search-pipeline/page.js"
+  "/page": "app/page.js"
 }

@@ -40,6 +40,7 @@ interface JobData {
 interface GeneratedPost {
   platform: string
   content: string
+  imageUrl: string
 }
 
 export default function CreateJob() {
@@ -120,7 +121,8 @@ export default function CreateJob() {
       const postData = await response.json()
       setGeneratedPost({
         platform: selectedPlatform,
-        content: postData.content
+        content: postData.content,
+        imageUrl: postData.imageUrl
       })
 
       toast({
@@ -445,10 +447,46 @@ export default function CreateJob() {
                         Copy
                       </Button>
                     </div>
-                    <div className="bg-white rounded-lg p-4 border border-blue-200">
-                      <pre className="whitespace-pre-wrap text-sm text-gray-800 font-sans">
-                        {generatedPost.content}
-                      </pre>
+                    <div className="space-y-4">
+                      {generatedPost.imageUrl && (
+                        <img src={generatedPost.imageUrl} alt="Job visual" className="w-full rounded-lg border border-blue-200" />
+                      )}
+                      <div className="bg-white rounded-lg p-4 border border-blue-200">
+                        <pre className="whitespace-pre-wrap text-sm text-gray-800 font-sans">
+                          {generatedPost.content}
+                        </pre>
+                      </div>
+
+                      {/* Share Buttons */}
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            const maxLen = 1300 // LinkedIn post limit
+                            const summary = `${generatedPost.content}\n\n${generatedJob?.formUrl ?? ''}`.slice(0, maxLen)
+                            const shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(generatedJob?.formUrl ?? '')}&title=${encodeURIComponent(generatedJob?.title ?? '')}&summary=${encodeURIComponent(summary)}&source=${encodeURIComponent(window.location.hostname)}`
+                            window.open(shareUrl, '_blank')
+                          }}
+                          className="border-blue-200 hover:bg-blue-50"
+                        >
+                          <Linkedin className="w-4 h-4 mr-2" />
+                          Share on LinkedIn
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            const tweet = `${generatedPost.content} ${generatedJob?.formUrl ?? ''}`
+                            const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet)}`
+                            window.open(shareUrl, '_blank')
+                          }}
+                          className="border-blue-200 hover:bg-blue-50"
+                        >
+                          <Twitter className="w-4 h-4 mr-2" />
+                          Share on Twitter
+                        </Button>
+                      </div>
                     </div>
                   </motion.div>
                 )}
