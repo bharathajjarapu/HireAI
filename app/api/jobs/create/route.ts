@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { JobStore, JobRecord } from '@/lib/store'
+import { generateFormUrl } from '@/lib/config'
 
 const GEMINI_KEY = process.env.GEMINI_API_KEY || ''
 let genAI: GoogleGenerativeAI | null = null
@@ -110,8 +111,8 @@ export async function POST(req: NextRequest) {
     // Generate unique job ID
     const jobId = Date.now().toString() + Math.random().toString(36).substr(2, 9)
     
-    // Create form URL
-    const formUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://hireai-t0pl.onrender.com'}/apply/${jobId}`
+    // Create form URL based on environment
+    const formUrl = generateFormUrl(jobId)
 
     // Save job data (in a real app, this would go to a database)
     // For now, we'll just return the structured data
