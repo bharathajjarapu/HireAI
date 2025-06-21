@@ -62,14 +62,14 @@ const features = [
   },
   {
     icon: Shield,
-    title: "Enterprise Security",
-    description: "Bank-level security with SOC 2 compliance and data encryption.",
+    title: "Realtime Resume Scoring",
+    description: "Get realtime scores for each candidate based on your job description.",
     color: "text-purple-500"
   },
   {
     icon: BarChart3,
-    title: "Analytics & Insights",
-    description: "Get detailed analytics on your hiring pipeline and candidate engagement.",
+    title: "Gets Realtime Updates",
+    description: "Get realtime updates on your hiring pipeline and candidate engagement.",
     color: "text-orange-500"
   },
   {
@@ -114,7 +114,7 @@ const faqs = [
   },
   {
     question: "What sources does HireAI search for candidates?",
-    answer: "We search across professional networks, job boards, github profiles, open source contributions, and our proprietary database of over 10 million candidates worldwide."
+    answer: "We search across professional networks, job boards, github profiles, open source contributions, and more."
   },
   {
     question: "How long does it take to see results?",
@@ -122,11 +122,11 @@ const faqs = [
   },
   {
     question: "Is my data secure?",
-    answer: "Yes, we're SOC 2 compliant with enterprise-grade security. All data is encrypted in transit and at rest. We never share your data with competitors or third parties."
+    answer: "Yes, we ensure that all data is encrypted in transit and at rest. We never share your data with competitors or third parties."
   },
   {
     question: "Can I integrate HireAI with my existing ATS?",
-    answer: "Yes, we offer integrations with 50+ popular ATS platforms including Greenhouse, Lever, BambooHR, and Workday. Custom integrations are available for enterprise clients."
+    answer: "No, we don't offer integrations with any ATS platforms currently. We are working on it though."
   },
   {
     question: "What if I'm not satisfied with the results?",
@@ -134,26 +134,71 @@ const faqs = [
   }
 ]
 
+// Updated with real-world benchmarks (LinkedIn & SHRM research)
 const stats = [
-  { label: "Companies Using HireAI", value: "2,500+", icon: Building },
-  { label: "Successful Hires", value: "50,000+", icon: Users },
-  { label: "Time Saved", value: "60%", icon: Clock },
-  { label: "Success Rate", value: "95%", icon: TrendingUp },
+  { label: "Avg. sourcing hours / week", value: "13h", icon: Clock },
+  { label: "CVs screened per hire", value: "160+", icon: FileText },
+  { label: "Cost of a bad hire", value: "₹8.4 L", icon: Award },
+  { label: "Time can be saved with HireAI", value: "60%", icon: Zap },
+]
+
+// Testimonials displayed on the landing page
+const testimonials = [
+  {
+    name: "Adithya Penagonda",
+    title: "CEO of Laminin Digital",
+    quote: "The potential is massive. If HireAI delivers on what it promises, it'll replace at least three tools we're using right now.",
+    image: "/Adithya.png",
+  },
+  {
+    name: "Vedika Manek",
+    title: "Founder of UniVoyage",
+    quote: "I got early access to HireAI's platform, and it already feels like having a co-founder focused only on hiring.",
+    image: "/Vedika.png",
+  },
+  {
+    name: "Srujan Panuganti",
+    title: "CEO of Xairo Robotics",
+    quote: "Even in the early demo phase, HireAI gave us a glimpse of what recruitment could be and we're excited to see how it evolves.",
+    image: "/Srujan.png",
+  },
 ]
 
 // Dashboard data for logged-in users
 const dashboardStats = [
-  { label: "Active Jobs", value: "24", icon: Target, color: "text-blue-500" },
-  { label: "Candidates Found", value: "1,247", icon: Users, color: "text-green-500" },
-  { label: "Emails Sent", value: "892", icon: Mail, color: "text-purple-500" },
-  { label: "Success Rate", value: "68%", icon: TrendingUp, color: "text-orange-500" },
+  { label: "Active Jobs", value: "2", icon: Target, color: "text-blue-500" },
+  { label: "Candidates Found", value: "124", icon: Users, color: "text-green-500" },
+  { label: "Emails Sent", value: "82", icon: Mail, color: "text-purple-500" },
+  { label: "Success Rate", value: "8%", icon: TrendingUp, color: "text-orange-500" },
 ]
 
 const recentJobs = [
-  { title: "Senior Backend Engineer", candidates: 45, status: "Active", progress: 75 },
-  { title: "Frontend React Developer", candidates: 32, status: "Screening", progress: 60 },
-  { title: "DevOps Engineer", candidates: 28, status: "Outreach", progress: 40 },
-  { title: "AI/ML Engineer", candidates: 67, status: "Active", progress: 85 },
+  { title: "AI Developer", candidates: 5, status: "Active", progress: 75 },
+  { title: "Data Engineer", candidates: 3, status: "Screening", progress: 60 },
+  { title: "Full Stack Developer", candidates: 8, status: "Outreach", progress: 40 },
+  { title: "AI/ML Engineer", candidates: 7, status: "Active", progress: 85 },
+]
+
+// Pricing tiers (based on number of conversions)
+const pricingTiers = [
+  {
+    name: "Starter",
+    conversions: "Up to 100 hires / year",
+    price: "₹2,000 /mo",
+    popular: false,
+  },
+  {
+    name: "Growth",
+    conversions: "Up to 1000 hires / year",
+    price: "₹10,000 /mo",
+    popular: true,
+  },
+  {
+    name: "Scale",
+    conversions: "Unlimited hires",
+    price: "Contact Us",
+    popular: false,
+  },
 ]
 
 const containerVariants = {
@@ -212,7 +257,7 @@ export default function LandingPage() {
             {!isSignedIn && (
               <nav className="hidden md:flex items-center space-x-8">
                 <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
-                <a href="#how-it-works" className="text-gray-600 hover:text-blue-600 transition-colors">How it Works</a>
+                <a href="#transformation" className="text-gray-600 hover:text-blue-600 transition-colors">Transformation</a>
                 <a href="#faq" className="text-gray-600 hover:text-blue-600 transition-colors">FAQ</a>
               </nav>
             )}
@@ -266,7 +311,7 @@ export default function LandingPage() {
                   transition={{ duration: 0.8 }}
                 >
                   <Badge variant="outline" className="mb-6 border-blue-200 text-blue-600">
-                    🚀 Trusted by 2,500+ Companies
+                    ⚡️ Automate your candidate search
                   </Badge>
                   
                   <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
@@ -289,25 +334,12 @@ export default function LandingPage() {
                         <ArrowRight className="w-5 h-5 ml-2" />
                       </Button>
                     </SignUpButton>
-                    <Button size="lg" variant="outline" className="border-gray-300 px-8 py-4 text-lg">
-                      <Play className="w-5 h-5 mr-2" />
-                      Watch Demo
-                    </Button>
-                  </div>
-
-                  <div className="flex items-center space-x-6 text-sm text-gray-500">
-                    <div className="flex items-center">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                      No credit card required
-                    </div>
-                    <div className="flex items-center">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                      14-day free trial
-                    </div>
-                    <div className="flex items-center">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                      Cancel anytime
-                    </div>
+                    <Link href="https://www.loom.com/share/80020e7646ed4f3c8683702d91393a23?sid=94545186-fc83-4d6e-b8ed-1aad6335c07a" target="_blank" rel="noopener noreferrer">
+                      <Button size="lg" variant="outline" className="border-gray-300 px-8 py-4 text-lg">
+                        <Play className="w-5 h-5 mr-2" />
+                        Watch Demo
+                      </Button>
+                    </Link>
                   </div>
                 </motion.div>
 
@@ -386,9 +418,39 @@ export default function LandingPage() {
             <div className="absolute bottom-20 right-10 w-32 h-32 bg-purple-200 rounded-full opacity-20 blur-xl"></div>
           </section>
 
-          {/* Stats Section */}
-          <section className="py-16 bg-white">
+          {/* Problem Section */}
+          <section id="problem" className="py-16 bg-white">
             <div className="container mx-auto px-6">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center max-w-3xl mx-auto"
+              >
+                <Badge variant="outline" className="mb-4 border-blue-200 text-blue-600">Problem</Badge>
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Recruiters spend too much time sourcing</h2>
+                <p className="text-xl text-gray-600">On average, talent teams waste <span className="font-semibold text-blue-600">13 hours every week</span> manually searching LinkedIn, job boards and inboxes. That is time that could be spent engaging great candidates instead.</p>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Social Proof Section */}
+          <section id="social-proof" className="py-16 bg-white">
+            <div className="container mx-auto px-6">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-16"
+              >
+                <Badge variant="outline" className="mb-4 border-blue-200 text-blue-600">
+                  Social Proof
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                  Hiring is broken — the numbers prove it
+                </h2>
+              </motion.div>
+
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -476,8 +538,8 @@ export default function LandingPage() {
             </div>
           </section>
 
-          {/* How It Works Section */}
-          <section id="how-it-works" className="py-20 bg-white">
+          {/* Pricing Section */}
+          <section id="pricing" className="py-20 bg-white">
             <div className="container mx-auto px-6">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -486,11 +548,93 @@ export default function LandingPage() {
                 className="text-center mb-16"
               >
                 <Badge variant="outline" className="mb-4 border-blue-200 text-blue-600">
-                  How it Works
+                  Pricing
                 </Badge>
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  From Job Post to 
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Perfect Hire</span>
+                  Simple pricing based on conversions
+                </h2>
+                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                  Only pay for the hires you make. No hidden fees, no long-term contracts.
+                </p>
+              </motion.div>
+
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-8"
+              >
+                {pricingTiers.map((tier, idx) => (
+                  <motion.div
+                    key={tier.name}
+                    variants={itemVariants}
+                    className={`relative rounded-3xl p-10 shadow-lg bg-white flex flex-col transition transform hover:-translate-y-2 ${tier.popular ? 'ring-2 ring-offset-2 ring-blue-500' : 'border border-gray-200'}`}
+                  >
+                    {tier.popular && <span className="inline-block mb-4 px-3 py-1 text-xs font-semibold text-white bg-blue-600 rounded-full">Most Popular</span>}
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{tier.name}</h3>
+                    <p className="text-gray-600 mb-6">{tier.conversions}</p>
+                    <p className="text-3xl font-extrabold text-gray-900 mb-6">{tier.price}</p>
+                    <Button className="mt-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white w-full">Start {tier.name}</Button>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Testimonials Section */}
+          <section id="testimonials" className="py-20 bg-gray-50">
+            <div className="container mx-auto px-6">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-16"
+              >
+                <Badge variant="outline" className="mb-4 border-blue-200 text-blue-600">
+                  Testimonials
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                  What leaders are saying
+                </h2>
+              </motion.div>
+
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-8"
+              >
+                {testimonials.map((t, idx) => (
+                  <motion.div key={idx} variants={itemVariants} className="bg-indigo-100 rounded-2xl p-8 text-center shadow-lg">
+                    <div className="flex justify-center -mt-16 mb-6">
+                      <img src={t.image} alt={t.name} className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md" />
+                    </div>
+                    <p className="italic text-gray-700 mb-6">“{t.quote}”</p>
+                    <p className="font-semibold text-gray-900">{t.name}</p>
+                    <p className="text-sm text-gray-600">{t.title}</p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Transformation Section */}
+          <section id="transformation" className="py-20 bg-white">
+            <div className="container mx-auto px-6">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-center mb-16"
+              >
+                <Badge variant="outline" className="mb-4 border-blue-200 text-blue-600">
+                  Transformation
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                  From Manual Sourcing to 
+                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Automated Success</span>
                 </h2>
                 <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                   Our streamlined process makes hiring effortless. Just describe your ideal candidate and let our AI do the rest.
@@ -530,6 +674,28 @@ export default function LandingPage() {
                     </motion.div>
                   ))}
                 </motion.div>
+              </div>
+            </div>
+          </section>
+
+          {/* Final Call To Action */}
+          <section id="cta" className="py-20 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+            <div className="container mx-auto px-6 text-center">
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-4xl md:text-5xl font-bold mb-6"
+              >
+                Ready to hire smarter?
+              </motion.h2>
+              <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-xl mb-8 max-w-2xl mx-auto">
+                Join the companies already using HireAI to cut sourcing time and build winning teams.
+              </motion.p>
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <SignUpButton mode="modal">
+                  <Button size="lg" className="bg-white text-purple-700 hover:bg-purple-50">Get Started</Button>
+                </SignUpButton>
               </div>
             </div>
           </section>
