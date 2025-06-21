@@ -111,7 +111,7 @@ export async function POST(req: NextRequest) {
     const jobId = Date.now().toString() + Math.random().toString(36).substr(2, 9)
     
     // Create form URL
-    const formUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/apply/${jobId}`
+    const formUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://hireai-t0pl.onrender.com'}/apply/${jobId}`
 
     // Save job data (in a real app, this would go to a database)
     // For now, we'll just return the structured data
