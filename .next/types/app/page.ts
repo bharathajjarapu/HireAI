@@ -1,4 +1,4 @@
-// File: C:\Users\Administrator\Pictures\Project\HireAI\app\page.tsx
+// File: /workspace/app/page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
