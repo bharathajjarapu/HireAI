@@ -142,27 +142,7 @@ const stats = [
   { label: "Time can be saved with HireAI", value: "60%", icon: Zap },
 ]
 
-// Testimonials displayed on the landing page
-const testimonials = [
-  {
-    name: "Adithya Penagonda",
-    title: "CEO of Laminin Digital",
-    quote: "The potential is massive. If HireAI delivers on what it promises, it'll replace at least three tools we're using right now.",
-    image: "/Adithya.png",
-  },
-  {
-    name: "Vedika Manek",
-    title: "Founder of UniVoyage",
-    quote: "I got early access to HireAI's platform, and it already feels like having a co-founder focused only on hiring.",
-    image: "/Vedika.png",
-  },
-  {
-    name: "Srujan Panuganti",
-    title: "CEO of Xairo Robotics",
-    quote: "Even in the early demo phase, HireAI gave us a glimpse of what recruitment could be and we're excited to see how it evolves.",
-    image: "/Srujan.png",
-  },
-]
+
 
 // Dashboard data for logged-in users
 const dashboardStats = [
@@ -576,44 +556,6 @@ export default function LandingPage() {
                     <p className="text-gray-600 mb-6">{tier.conversions}</p>
                     <p className="text-3xl font-extrabold text-gray-900 mb-6">{tier.price}</p>
                     <Button className="mt-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white w-full">Start {tier.name}</Button>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-          </section>
-
-          {/* Testimonials Section */}
-          <section id="testimonials" className="py-20 bg-gray-50">
-            <div className="container mx-auto px-6">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-center mb-16"
-              >
-                <Badge variant="outline" className="mb-4 border-blue-200 text-blue-600">
-                  Testimonials
-                </Badge>
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  What leaders are saying
-                </h2>
-              </motion.div>
-
-              <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="grid grid-cols-1 md:grid-cols-3 gap-8"
-              >
-                {testimonials.map((t, idx) => (
-                  <motion.div key={idx} variants={itemVariants} className="bg-indigo-100 rounded-2xl p-8 text-center shadow-lg">
-                    <div className="flex justify-center -mt-16 mb-6">
-                      <img src={t.image} alt={t.name} className="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md" />
-                    </div>
-                    <p className="italic text-gray-700 mb-6">“{t.quote}”</p>
-                    <p className="font-semibold text-gray-900">{t.name}</p>
-                    <p className="text-sm text-gray-600">{t.title}</p>
                   </motion.div>
                 ))}
               </motion.div>
