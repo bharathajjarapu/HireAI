@@ -93,62 +93,6 @@ mindmap
 
 ## 🏗️ Architecture
 
-### 🌐 System Architecture Overview
-
-```mermaid
-graph TB
-    subgraph "🌐 Frontend Layer"
-        UI[🎨 Next.js UI]
-        Comp[🧩 React Components]
-        State[📊 State Management]
-    end
-    
-    subgraph "⚡ API Layer"
-        API[🔌 Next.js API Routes]
-        Auth[🔐 Authentication]
-        Valid[✅ Validation]
-    end
-    
-    subgraph "🤖 AI Processing Layer"
-        MA[🧠 Multi-Agent System]
-        Proc[⚙️ Document Processor]
-        Anal[📈 Analysis Engine]
-    end
-    
-    subgraph "🗄️ Data Layer"
-        PDF[📄 PDF Parser]
-        Cache[⚡ Memory Cache]
-        Files[📁 File Storage]
-    end
-    
-    subgraph "🔌 External Services"
-        Google[🟡 Google Gemini AI]
-        SMTP[📧 Email Service]
-        CDN[🌍 CDN/Storage]
-    end
-    
-    UI --> API
-    Comp --> State
-    API --> MA
-    API --> Auth
-    MA --> Google
-    MA --> PDF
-    PDF --> Files
-    API --> SMTP
-    
-    classDef frontend fill:#e1f5fe
-    classDef api fill:#f3e5f5
-    classDef ai fill:#e8f5e8
-    classDef data fill:#fff3e0
-    classDef external fill:#fce4ec
-    
-    class UI,Comp,State frontend
-    class API,Auth,Valid api
-    class MA,Proc,Anal ai
-    class PDF,Cache,Files data
-    class Google,SMTP,CDN external
-```
-
 ### 🔄 Application Flow
 
 ```mermaid
@@ -273,55 +217,6 @@ stateDiagram-v2
 | **🔍 Icons** | Lucide React | 0.454.0 | Beautiful icon library |
 
 </div>
-
-### 📦 Dependencies Overview
-
-```mermaid
-graph TD
-    subgraph "🎯 Core Framework"
-        Next[Next.js 15]
-        React[React 19]
-        TS[TypeScript 5]
-    end
-    
-    subgraph "🎨 UI & Styling"
-        Tailwind[Tailwind CSS]
-        Radix[Radix UI]
-        Framer[Framer Motion]
-        Lucide[Lucide Icons]
-    end
-    
-    subgraph "🤖 AI & Processing"
-        Gemini[Google Gemini AI]
-        PDF[PDF Parser]
-        LangChain[LangChain]
-        Groq[Groq SDK]
-    end
-    
-    subgraph "🔧 Utilities"
-        Zod[Zod Validation]
-        HookForm[React Hook Form]
-        Nodemailer[Email Service]
-        DateFns[Date Utilities]
-    end
-    
-    Next --> React
-    Next --> TS
-    React --> Radix
-    React --> Framer
-    Tailwind --> Radix
-    Gemini --> LangChain
-    
-    classDef core fill:#e3f2fd
-    classDef ui fill:#f3e5f5
-    classDef ai fill:#e8f5e8
-    classDef util fill:#fff3e0
-    
-    class Next,React,TS core
-    class Tailwind,Radix,Framer,Lucide ui
-    class Gemini,PDF,LangChain,Groq ai
-    class Zod,HookForm,Nodemailer,DateFns util
-```
 
 ## 🚀 Quick Start
 
@@ -451,59 +346,6 @@ journey
 
 ## 🔄 System Flows
 
-### 📄 Resume Upload & Analysis Flow
-
-```mermaid
-flowchart TD
-    Start([👤 User Uploads Resume]) --> Upload{📁 File Type Check}
-    Upload -->|✅ PDF| Parse[📄 Parse PDF Content]
-    Upload -->|❌ Invalid| Error1[❌ Show Error Message]
-    
-    Parse --> Extract[🔍 Extract Text & Links]
-    Extract --> Validate{✅ Content Validation}
-    Validate -->|❌ Empty/Invalid| Error2[❌ Invalid Content Error]
-    Validate -->|✅ Valid| InitAgents[🤖 Initialize Multi-Agent System]
-    
-    InitAgents --> Agent1[📄 Document Processor]
-    Agent1 --> Agent2[🎯 Role Matching]
-    Agent2 --> Agent3[🔧 Skills Analysis]
-    Agent3 --> Agent4[💼 Experience Review]
-    Agent4 --> Agent5[📈 Growth Analysis]
-    Agent5 --> Agent6[⭐ Strengths Assessment]
-    Agent6 --> Agent7[🧠 Final Synthesis]
-    
-    Agent7 --> Compile[📊 Compile Results]
-    Compile --> Cache[⚡ Cache Analysis]
-    Cache --> Display[🎨 Display Results]
-    Display --> Actions{🔄 User Actions}
-    
-    Actions -->|💬| Chat[💬 Chat with Resume]
-    Actions -->|📧| Email[📧 Send Email Report]
-    Actions -->|🔍| Search[🔍 Find Similar Candidates]
-    Actions -->|📊| Analytics[📊 View Analytics]
-    
-    Error1 --> EndNode([🔚 End])
-    Error2 --> EndNode
-    Chat --> EndNode
-    Email --> EndNode
-    Search --> EndNode
-    Analytics --> EndNode
-    
-    classDef start fill:#e8f5e8
-    classDef process fill:#e3f2fd
-    classDef agent fill:#f3e5f5
-    classDef decision fill:#fff3e0
-    classDef error fill:#ffebee
-    classDef endNode fill:#f1f8e9
-    
-    class Start start
-    class Parse,Extract,InitAgents,Compile,Cache,Display process
-    class Agent1,Agent2,Agent3,Agent4,Agent5,Agent6,Agent7 agent
-    class Upload,Validate,Actions decision
-    class Error1,Error2 error
-    class EndNode,Chat,Email,Search,Analytics endNode
-```
-
 ### 🔍 Candidate Search Flow
 
 ```mermaid
@@ -542,43 +384,6 @@ sequenceDiagram
         API-->>UI: Detailed Analysis
         UI-->>U: Show Full Profile
     end
-```
-
-### 📧 Email Automation Flow
-
-```mermaid
-graph TD
-    Trigger[📧 Email Trigger] --> Check{🔍 Check Requirements}
-    Check -->|✅| Template[📝 Select Template]
-    Check -->|❌| Error[❌ Missing Data Error]
-    
-    Template --> Personalize[🎯 Personalize Content]
-    Personalize --> Generate[🤖 AI Content Generation]
-    Generate --> Format[📄 Format HTML/Text]
-    Format --> Validate[✅ Validate Email]
-    
-    Validate -->|✅| Send[📤 Send Email]
-    Validate -->|❌| Fix[🔧 Fix Issues]
-    Fix --> Validate
-    
-    Send --> Track[📊 Track Delivery]
-    Track --> Log[📝 Log Activity]
-    Log --> Success[✅ Success Response]
-    
-    Error --> ErrorLog[📝 Error Logging]
-    ErrorLog --> ErrorResponse[❌ Error Response]
-    
-    classDef trigger fill:#e8f5e8
-    classDef process fill:#e3f2fd
-    classDef decision fill:#fff3e0
-    classDef success fill:#f1f8e9
-    classDef error fill:#ffebee
-    
-    class Trigger trigger
-    class Template,Personalize,Generate,Format,Send,Track,Log process
-    class Check,Validate decision
-    class Success success
-    class Error,Fix,ErrorLog,ErrorResponse error
 ```
 
 ## 🌐 API Documentation
@@ -1133,37 +938,6 @@ git push origin feature/amazing-new-feature
 | ⚡ **Performance** | Optimize code | Faster processing |
 | 🔒 **Security** | Security improvements | Input validation |
 
-### 🎯 Development Workflow
-
-```mermaid
-flowchart TD
-    Start([🚀 Start Development]) --> Setup[⚙️ Local Setup]
-    Setup --> Code[💻 Write Code]
-    Code --> Test[✅ Run Tests]
-    Test --> Lint[🔍 Lint & Format]
-    Lint --> PR[📤 Create PR]
-    PR --> Review[👀 Code Review]
-    Review --> Deploy[🚀 Deploy]
-    
-    Test -->|❌ Tests Fail| Fix[🔧 Fix Issues]
-    Fix --> Test
-    
-    Review -->|❌ Changes Requested| Update[🔄 Update Code]
-    Update --> Review
-    
-    classDef start fill:#e8f5e8
-    classDef process fill:#e3f2fd
-    classDef decision fill:#fff3e0
-    classDef fix fill:#ffebee
-    classDef success fill:#f1f8e9
-    
-    class Start start
-    class Setup,Code,Lint,Deploy process
-    class Test,Review decision
-    class Fix,Update fix
-    class PR success
-```
-
 ### 🏆 Recognition
 
 Contributors will be recognized in our:
@@ -1206,34 +980,5 @@ timeline
            : Advanced Integrations
            : Global Expansion
 ```
-
-### 🏆 Achievements
-
-- 🌟 **1000+** Resumes Processed
-- ⚡ **95%** Accuracy Rate
-- 🚀 **< 10s** Average Processing Time
-- 👥 **500+** Active Users
-- 🌍 **15** Countries Supported
-
----
-
-<div align="center">
-
-## 🙏 Acknowledgments
-
-Special thanks to all contributors, beta testers, and the open-source community that makes HireAI possible.
-
-**Built with ❤️ by the HireAI Team**
-
-[![Contributors](https://img.shields.io/github/contributors/yourusername/HireAI?style=for-the-badge)](https://github.com/yourusername/HireAI/graphs/contributors)
-[![Stars](https://img.shields.io/github/stars/yourusername/HireAI?style=for-the-badge)](https://github.com/yourusername/HireAI/stargazers)
-[![Forks](https://img.shields.io/github/forks/yourusername/HireAI?style=for-the-badge)](https://github.com/yourusername/HireAI/network/members)
-[![License](https://img.shields.io/github/license/yourusername/HireAI?style=for-the-badge)](https://github.com/yourusername/HireAI/blob/main/LICENSE)
-
----
-
-**⭐ Star this repo if you find it helpful!** | **🐛 Report issues** | **🤝 Contribute**
-
-[🔝 Back to Top](#-hireai---next-generation-ai-hiring-copilot)
 
 </div> 
