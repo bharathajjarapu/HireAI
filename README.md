@@ -129,40 +129,6 @@ sequenceDiagram
 
 ## 🤖 AI Agent System
 
-### 🧠 Multi-Agent Architecture
-
-HireAI employs a sophisticated multi-agent system where each AI agent specializes in a specific aspect of resume analysis, working together to provide comprehensive candidate evaluation.
-
-```mermaid
-graph LR
-    subgraph "🤖 Multi-Agent Pipeline"
-        DP[📄 Document Processor]
-        RM[🎯 Role Matching]
-        SA[🔧 Skills Analyzer]
-        ER[💼 Experience Reviewer]
-        GA[📈 Growth Analyst]
-        StA[⭐ Strengths Assessor]
-        FS[🧠 Final Synthesizer]
-    end
-    
-    Resume[📋 Resume Input] --> DP
-    DP --> RM
-    RM --> SA
-    SA --> ER
-    ER --> GA
-    GA --> StA
-    StA --> FS
-    FS --> Results[📊 Final Analysis]
-    
-    classDef agent fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
-    classDef input fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
-    classDef output fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    
-    class DP,RM,SA,ER,GA,StA,FS agent
-    class Resume input
-    class Results output
-```
-
 ### 👥 Agent Specializations
 
 | Agent | Role | Key Capabilities | Output |
@@ -982,3 +948,4 @@ timeline
 ```
 
 </div> 
+
